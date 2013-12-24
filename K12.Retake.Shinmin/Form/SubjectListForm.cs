@@ -511,7 +511,7 @@ namespace K12.Retake.Shinmin.Form
             if (FISCA.Presentation.Controls.MsgBox.Show("請問是否刪除?", "刪除科目", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
             {
                 UDTSubjectDef delSubj = e.Row.Tag as UDTSubjectDef;
-                if (delSubj != null)
+                if (delSubj != null && (!string.IsNullOrEmpty(delSubj.UID)))    // 小郭, 2013/12/24
                 {
                     _DeleteDataList.Add(delSubj);
                 }

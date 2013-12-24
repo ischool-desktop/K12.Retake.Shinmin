@@ -226,12 +226,13 @@ namespace K12.Retake.Shinmin.Form
                     if (scb.CreateCount < 1)
                         continue;
 
+                    /* 小郭, 2013/12/24
                     int MaxStudCount = scb.MaxStudentCount;
 
                     int NewCount = (int)Math.Round(((decimal)scb.StudentIDList.Count / (decimal)scb.CreateCount), 0);
                     if (NewCount > MaxStudCount)
                         MaxStudCount = NewCount;
-
+                    */
                     List<int> cousreIDList = new List<int>();
                     foreach (string name in scb.CourseNameList)
                     {
@@ -243,10 +244,14 @@ namespace K12.Retake.Shinmin.Form
                     int courseIdx = 0, seatno = 1;
                     if (cousreIDList.Count > 0)
                     {
+                        // 小郭, 2013/12/24, 計算每個課程需要多少學生
+                        int[] eachCourseStudCnt = CalEachCourseStudentCount(scb.StudentIDList.Count, cousreIDList.Count);
+
                         foreach (SubjectCourseStudentBase stud in scb.StudentIDList)
                         {
 
-                            if (seatno > MaxStudCount)
+                            // 小郭, 2013/12/24 if (seatno > MaxStudCount)
+                            if (seatno > eachCourseStudCnt[courseIdx])  // 小郭, 2013/12/24
                             {
                                 seatno = 1;
                                 courseIdx++;
@@ -494,5 +499,27 @@ namespace K12.Retake.Shinmin.Form
         {
             
         }    
+    
+        /// <summary>
+        /// 計算每個課程有多少學生, 小郭, 2013/12/24
+        /// </summary>
+        /// <param name="totalStudentCnt"></param>
+        /// <param name="totalCourseCnt"></param>
+        private int[] CalEachCourseStudentCount(int totalStudentCnt, int totalCourseCnt)
+        {
+            int[] result = new int[totalCourseCnt];
+            int avgCount = totalStudentCnt / totalCourseCnt;
+
+            // 把人平均分到每一個課程
+            for (int intI=0; intI<result.Length; intI++)
+                result[intI] = avgCount;
+
+            // 把剩下的人, 依序加到前幾個課程
+            int remainCount = totalStudentCnt % totalCourseCnt;
+            for (int intI=0; intI<remainCount; intI++)
+                result[intI] += 1;
+
+            return result;
+        }
     }
 }

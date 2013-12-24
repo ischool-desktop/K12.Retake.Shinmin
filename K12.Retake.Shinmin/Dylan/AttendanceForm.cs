@@ -437,6 +437,8 @@ namespace K12.Retake.Shinmin.Form
                 return;
             }
 
+            SetButton(false);   // 小郭, 2013/12/23
+
             MsgBox.Show("儲存成功!!");
 
             ChangeReNew();

@@ -76,10 +76,13 @@ namespace K12.Retake.Shinmin
                         Conditions.Add("(ref_course_id=" + CourseID + " and ref_student_id=" + StudentID + ")");
                 }
 
-                string strCondition = SelectIDCondition("$shinmin.retake.scselect",string.Join(" or ", Conditions.ToArray()));
+                if (Conditions.Count > 0)    // 小郭, 2013/12/24
+                {
+                    string strCondition = SelectIDCondition("$shinmin.retake.scselect",string.Join(" or ", Conditions.ToArray()));
 
-                if (!string.IsNullOrEmpty(strCondition))
-                    mSCAttends = mHelper.Select<UDTScselectDef>(strCondition);
+                    if (!string.IsNullOrEmpty(strCondition))
+                        mSCAttends = mHelper.Select<UDTScselectDef>(strCondition);
+                }
 
                 foreach (IRowStream Row in Rows)
                 {

@@ -22,8 +22,8 @@ namespace K12.Retake.Shinmin
         static BackgroundWorker _bgLLoadUDT = new BackgroundWorker();
         [MainMethod()]
         public static void Main()
-        {
-            // 更新 UDS UDT 方式            
+        { 
+            // 更新 UDS UDT 方式             
             if (!FISCA.RTContext.IsDiagMode)
                 FISCA.ServerModule.AutoManaged("http://module.ischool.com.tw/module/137/Retake_Shinmin_dep/udm.xml");
 

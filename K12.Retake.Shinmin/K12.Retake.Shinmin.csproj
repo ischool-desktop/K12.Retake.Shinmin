@@ -319,7 +319,9 @@
     </Compile>
     <Compile Include="Global.cs" />
     <Compile Include="ImportExport\CourseScore.cs" />
+    <Compile Include="ImportExport\ExportCourseInfo.cs" />
     <Compile Include="ImportExport\ExportCourseScore.cs" />
+    <Compile Include="ImportExport\ExportSCAttend.cs" />
     <Compile Include="ImportExport\ExportStudentCourseSelect.cs" />
     <Compile Include="ImportExport\ImportSCAttend.cs" />
     <Compile Include="ImportExport\ImportCourse.cs" />
@@ -400,6 +402,8 @@
     <Content Include="Library\K12.Presentation.dll" />
     <Content Include="Library\SmartSchool.Customization.Data.dll" />
     <Content Include="Library\SmartSchool.Customization.Data.xml" />
+    <None Include="Resources\匯出修課學生.xls" />
+    <None Include="Resources\課程基本資料.xls" />
     <None Include="Resource\time_frame_refresh_128.png" />
     <None Include="Resource\desk_64.png" />
     <None Include="Resource\subject_del.png" />

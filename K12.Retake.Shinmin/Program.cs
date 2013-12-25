@@ -342,6 +342,34 @@ namespace K12.Retake.Shinmin
                     FISCA.Presentation.Controls.MsgBox.Show("請選擇課程!");
             };
 
+            RibbonBarItem itemEp03 = Shinmin.RetakeAdmin.Instance.RibbonBarItems["資料統計"];
+            itemEp03["匯出"].Image = Properties.Resources.匯出;
+            itemEp03["匯出"].Size = RibbonBarButton.MenuButtonSize.Large;
+            itemEp03["匯出"]["匯出課程"].Enable = UserAcl.Current["K12.Retake.Shinmin.ExportCourseInfo"].Executable;
+            itemEp03["匯出"]["匯出課程"].Click += delegate
+            {
+                if (RetakeAdmin.Instance.SelectedSource.Count > 0)
+                {
+                    ImportExport.ExportCourseInfo eci = new ImportExport.ExportCourseInfo(RetakeAdmin.Instance.SelectedSource);
+                }
+                else
+                    FISCA.Presentation.Controls.MsgBox.Show("請選擇課程!");
+            };
+
+            RibbonBarItem itemEp04 = Shinmin.RetakeAdmin.Instance.RibbonBarItems["資料統計"];
+            itemEp04["匯出"].Image = Properties.Resources.匯出;
+            itemEp04["匯出"].Size = RibbonBarButton.MenuButtonSize.Large;
+            itemEp04["匯出"]["匯出修課學生"].Enable = UserAcl.Current["K12.Retake.Shinmin.ExportSCAttend"].Executable;
+            itemEp04["匯出"]["匯出修課學生"].Click += delegate
+            {
+                if (RetakeAdmin.Instance.SelectedSource.Count > 0)
+                {
+                    ImportExport.ExportSCAttend esca = new ImportExport.ExportSCAttend(RetakeAdmin.Instance.SelectedSource);
+                }
+                else
+                    FISCA.Presentation.Controls.MsgBox.Show("請選擇課程!");
+            };
+
             //其它
             MenuButton MenuItem09 = Shinmin.RetakeAdmin.Instance.ListPaneContexMenu["刪除課程"];
             MenuItem09.Enable = UserAcl.Current["K12.Retake.Shinmin.DeleteCourse"].Executable;
@@ -422,6 +450,14 @@ namespace K12.Retake.Shinmin
             //匯出學生選課清單
             Catalog catalogSc02 = RoleAclSource.Instance["重補修"]["功能按鈕"];
             catalogSc02.Add(new RibbonFeature("K12.Retake.Shinmin.ExportStudentCourseSelect", "學生選課清單"));
+
+            //匯出課程
+            Catalog catalogSc03 = RoleAclSource.Instance["重補修"]["功能按鈕"];
+            catalogSc03.Add(new RibbonFeature("K12.Retake.Shinmin.ExportCourseInfo", "匯出課程"));
+
+            //匯出修課學生
+            Catalog catalogSc04 = RoleAclSource.Instance["重補修"]["功能按鈕"];
+            catalogSc04.Add(new RibbonFeature("K12.Retake.Shinmin.ExportSCAttend", "匯出修課學生"));
 
             //匯入學生修課
             Catalog catalog20 = RoleAclSource.Instance["重補修"]["功能按鈕"];

@@ -199,4 +199,10 @@
   <data name="學生重補修缺曠通知單扣考範本" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\template\學生重補修缺曠通知單扣考範本.doc;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="課程基本資料" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\課程基本資料.xls;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="匯出修課學生" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\匯出修課學生.xls;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

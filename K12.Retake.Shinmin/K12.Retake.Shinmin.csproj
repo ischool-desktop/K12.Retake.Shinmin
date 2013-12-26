@@ -101,6 +101,10 @@
       <HintPath>Library\FISCA.DSAUtil.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="FISCA.LogAgent">
+      <HintPath>Library\FISCA.LogAgent.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="FISCA.Permission, Version=1.1.0.11, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\FISCA.Permission.dll</HintPath>
@@ -116,6 +120,10 @@
       <HintPath>Library\FISCA.UDT.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="IntelliSchool.DSA.ClientFramework">
+      <HintPath>Library\IntelliSchool.DSA.ClientFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="K12.Data, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\K12.Data.dll</HintPath>
@@ -126,9 +134,33 @@
       <HintPath>Library\K12.Presentation.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SmartSchool.API.PlugIn">
+      <HintPath>Library\SmartSchool.API.PlugIn.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.Common">
+      <HintPath>Library\SmartSchool.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.Common.DotNetBar">
+      <HintPath>Library\SmartSchool.Common.DotNetBar.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.Core.General">
+      <HintPath>Library\SmartSchool.Core.General.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="SmartSchool.Customization.Data, Version=1.3.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\SmartSchool.Customization.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.Customization.PlugIn">
+      <HintPath>Library\SmartSchool.Customization.PlugIn.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.ErrorReporting">
+      <HintPath>Library\SmartSchool.ErrorReporting.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -227,6 +259,10 @@
     <Compile Include="DetailContent\CourseStudentContent.Designer.cs">
       <DependentUpon>CourseStudentContent.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportStudentV2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportStudentV2.designer.cs" />
     <Compile Include="Form\AddCourse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -460,6 +496,7 @@
     <EmbeddedResource Include="DetailContent\CourseStudentContent.resx">
       <DependentUpon>CourseStudentContent.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExportStudentV2.resx" />
     <EmbeddedResource Include="Form\AddCourse.resx">
       <DependentUpon>AddCourse.cs</DependentUpon>
     </EmbeddedResource>

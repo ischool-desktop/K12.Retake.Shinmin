@@ -45,6 +45,7 @@
             // 
             this.advTree1.BackgroundStyle.Class = "TreeBorderKey";
             this.advTree1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.advTree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.advTree1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.advTree1.Location = new System.Drawing.Point(0, 0);
             this.advTree1.Name = "advTree1";
@@ -53,7 +54,7 @@
             this.advTree1.NodesConnector = this.nodeConnector1;
             this.advTree1.NodeStyle = this.elementStyle1;
             this.advTree1.PathSeparator = ";";
-            this.advTree1.Size = new System.Drawing.Size(224, 446);
+            this.advTree1.Size = new System.Drawing.Size(245, 446);
             this.advTree1.Styles.Add(this.elementStyle1);
             this.advTree1.TabIndex = 0;
             this.advTree1.Text = "advTree1";

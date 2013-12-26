@@ -22,7 +22,7 @@ namespace K12.Retake.Shinmin
         static BackgroundWorker _bgLLoadUDT = new BackgroundWorker();
         [MainMethod()]
         public static void Main()
-        { 
+        {
             // 更新 UDS UDT 方式             
             if (!FISCA.RTContext.IsDiagMode)
                 FISCA.ServerModule.AutoManaged("http://module.ischool.com.tw/module/137/Retake_Shinmin_dep/udm.xml");
@@ -35,13 +35,13 @@ namespace K12.Retake.Shinmin
             _bgLLoadUDT.RunWorkerCompleted += new RunWorkerCompletedEventHandler(_bgLLoadUDT_RunWorkerCompleted);
             _bgLLoadUDT.RunWorkerAsync();
             MotherForm.AddPanel(RetakeAdmin.Instance);
-            
+
             // Add ListView
             RetakeAdmin.Instance.AddView(new RetakeViewTree());
 
             RetakeAdmin.Instance.SelectedSourceChanged += delegate
             {
-                FISCA.Presentation.MotherForm.SetStatusBarMessage("選擇「"+RetakeAdmin.Instance.SelectedSource.Count+"」個課程");
+                FISCA.Presentation.MotherForm.SetStatusBarMessage("選擇「" + RetakeAdmin.Instance.SelectedSource.Count + "」個課程");
             };
 
             RibbonBarItem item08 = Shinmin.RetakeAdmin.Instance.RibbonBarItems["編輯"];
@@ -137,7 +137,7 @@ namespace K12.Retake.Shinmin
             };
 
 
-           
+
 
             RibbonBarItem item09 = Shinmin.RetakeAdmin.Instance.RibbonBarItems["資料統計"];
             item09["匯入"].Image = Properties.Resources.Import_Image;
@@ -279,7 +279,7 @@ namespace K12.Retake.Shinmin
             Results["成績結算"].Enable = UserAcl.Current["K12.Retake.Shinmin.ClearingForm"].Executable;
             Results["成績結算"].Click += delegate
             {
-                Form.ClearingForm cf = new Form.ClearingForm();                
+                Form.ClearingForm cf = new Form.ClearingForm();
                 cf.ShowDialog();
             };
 
@@ -350,7 +350,11 @@ namespace K12.Retake.Shinmin
             {
                 if (RetakeAdmin.Instance.SelectedSource.Count > 0)
                 {
-                    ImportExport.ExportCourseInfo eci = new ImportExport.ExportCourseInfo(RetakeAdmin.Instance.SelectedSource);
+                    ImportExport.ExportCourseInfo exporter = new ImportExport.ExportCourseInfo(RetakeAdmin.Instance.SelectedSource);
+
+                    ExportStudentV2 wizard = new ExportStudentV2(exporter.Text, exporter.Image, RetakeAdmin.Instance.SelectedSource);
+                    exporter.InitializeExport(wizard);
+                    wizard.ShowDialog();
                 }
                 else
                     FISCA.Presentation.Controls.MsgBox.Show("請選擇課程!");
@@ -364,7 +368,11 @@ namespace K12.Retake.Shinmin
             {
                 if (RetakeAdmin.Instance.SelectedSource.Count > 0)
                 {
-                    ImportExport.ExportSCAttend esca = new ImportExport.ExportSCAttend(RetakeAdmin.Instance.SelectedSource);
+                    ImportExport.ExportSCAttend exporter = new ImportExport.ExportSCAttend(RetakeAdmin.Instance.SelectedSource);
+
+                    ExportStudentV2 wizard = new ExportStudentV2(exporter.Text, exporter.Image, RetakeAdmin.Instance.SelectedSource);
+                    exporter.InitializeExport(wizard);
+                    wizard.ShowDialog();
                 }
                 else
                     FISCA.Presentation.Controls.MsgBox.Show("請選擇課程!");
@@ -381,7 +389,7 @@ namespace K12.Retake.Shinmin
             // 報表 重補修缺課(含扣考)通知單( 在學生>
             var studItemRpt01 = K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"]["報表"]["新民重補修報表"]["重補修缺課(含扣考)通知單"];
             studItemRpt01.Enable = UserAcl.Current["K12.Retake.Shinmin.Report.StudentCourseAttendanceRptForm"].Executable;
-            studItemRpt01.Image = Properties.Resources.Report;            
+            studItemRpt01.Image = Properties.Resources.Report;
             studItemRpt01.Click += delegate
             {
                 if (K12.Presentation.NLDPanels.Student.SelectedSource.Count > 0)
@@ -468,7 +476,7 @@ namespace K12.Retake.Shinmin
             catalog21.Add(new RibbonFeature("K12.Retake.Shinmin.ReSetSubjectDate", "時間表設定"));
 
             // 報表 課程點名單
-            Catalog catalog22= RoleAclSource.Instance["重補修"]["功能按鈕"];
+            Catalog catalog22 = RoleAclSource.Instance["重補修"]["功能按鈕"];
             catalog22.Add(new RibbonFeature("K12.Retake.Shinmin.Report.CourseStudentSCReport", "課程點名單"));
 
             // 報表 課程缺曠名單

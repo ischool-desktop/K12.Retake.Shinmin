@@ -1,6 +1,7 @@
 ﻿using Aspose.Cells;
 using K12.Data;
 using K12.Retake.Shinmin.DAO;
+using SmartSchool.API.PlugIn;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,9 +11,8 @@ using System.Text;
 
 namespace K12.Retake.Shinmin.ImportExport
 {
-    class ExportSCAttend
+    class ExportSCAttend : SmartSchool.API.PlugIn.Export.Exporter
     {
-        BackgroundWorker _bgWork;
         List<string> _CourseIDList; //課程id清單
         Dictionary<int, StudentRecord> _StudDict; //學生Record字典
         Dictionary<int, UDTCourseDef> _CourseDic; //課程字典
@@ -20,30 +20,58 @@ namespace K12.Retake.Shinmin.ImportExport
 
         public ExportSCAttend(List<string> courseIDList)
         {
+            //初始化
+            this.Image = null;
+            this.Text = "匯出修課學生";
             _CourseIDList = courseIDList;
-            
-            _bgWork = new BackgroundWorker();
-            _bgWork.DoWork += new DoWorkEventHandler(_bgWork_DoWork);
-            _bgWork.RunWorkerCompleted += new RunWorkerCompletedEventHandler(_bgWork_RunWorkerCompleted);
-            _bgWork.WorkerReportsProgress = true;
-            _bgWork.ProgressChanged += new ProgressChangedEventHandler(_bgWork_ProgressChanged);
-            _bgWork.RunWorkerAsync();
         }
 
-        private void _bgWork_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //覆寫
+        public override void InitializeExport(SmartSchool.API.PlugIn.Export.ExportWizard wizard)
         {
-        }
+            List<string> FieldList = new List<string>();
+            FieldList.Add("課程名稱");
+            FieldList.Add("學年度");
+            FieldList.Add("學期");
+            FieldList.Add("梯次");
+            FieldList.Add("學號");
+            FieldList.Add("姓名");
+            FieldList.Add("課程座號");
+            FieldList.Add("重補修");
 
-        private void _bgWork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Result != null)
+            wizard.ExportableFields.AddRange(FieldList);
+            wizard.ExportPackage += (sender, e) =>
             {
-                Workbook wb = (Workbook)e.Result;
-                Utility.CompletedXls("修課學生資料", wb);
-            }
+                GetData();
+
+                foreach (UDTScselectDef elem in _CourseStudents)
+                {
+                    RowData row = new RowData();
+                    row.ID = elem.UID;
+
+                    foreach (string field in e.ExportFields)
+                    {
+                        if (wizard.ExportableFields.Contains(field))
+                        {
+                            switch (field)
+                            {
+                                case "課程名稱": row.Add(field, "" + _CourseDic[elem.CourseID].CourseName); break;
+                                case "學年度": row.Add(field, "" + _CourseDic[elem.CourseID].SchoolYear); break;
+                                case "學期": row.Add(field, "" + _CourseDic[elem.CourseID].Semester); break;
+                                case "梯次": row.Add(field, "" + _CourseDic[elem.CourseID].Month); break;
+                                case "學號": row.Add(field, _StudDict[elem.StudentID].StudentNumber); break;
+                                case "姓名": row.Add(field, _StudDict[elem.StudentID].Name); break;
+                                case "課程座號": row.Add(field, "" + elem.SeatNo); break;
+                                case "重補修": row.Add(field, "" + elem.Type); break;
+                            }
+                        }
+                    }
+                    e.Items.Add(row);
+                }
+            };
         }
 
-        private void _bgWork_DoWork(object sender, DoWorkEventArgs e)
+        private void GetData()
         {
             //取得課程資料
             _CourseDic = new Dictionary<int, UDTCourseDef>();
@@ -75,29 +103,6 @@ namespace K12.Retake.Shinmin.ImportExport
                 if (!_StudDict.ContainsKey(id))
                     _StudDict.Add(id, rec);
             }
-
-            //輸出
-            Workbook wb = new Workbook();
-            wb.Open(new MemoryStream(Properties.Resources.匯出修課學生));
-
-            int row = 1;
-            foreach (UDTScselectDef student in _CourseStudents)
-            {
-                int courseID = student.CourseID;
-                int studentID = student.StudentID;
-                wb.Worksheets[0].Cells[row, 0].PutValue(_CourseDic[courseID].CourseName);
-                wb.Worksheets[0].Cells[row, 1].PutValue(_CourseDic[courseID].SchoolYear);
-                wb.Worksheets[0].Cells[row, 2].PutValue(_CourseDic[courseID].Semester);
-                wb.Worksheets[0].Cells[row, 3].PutValue(_CourseDic[courseID].Month);
-                wb.Worksheets[0].Cells[row, 4].PutValue(_StudDict[studentID].StudentNumber);
-                wb.Worksheets[0].Cells[row, 5].PutValue(_StudDict[studentID].Name);
-                wb.Worksheets[0].Cells[row, 6].PutValue(student.SeatNo);
-                wb.Worksheets[0].Cells[row, 7].PutValue(student.Type);
-                row++;
-            }
-
-            wb.Worksheets[0].AutoFitColumns();
-            e.Result = wb;
         }
 
         private int SortCourseStudents(UDTScselectDef x, UDTScselectDef y)

@@ -158,6 +158,8 @@
             // 
             // cbxCourseTeacher
             // 
+            this.cbxCourseTeacher.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbxCourseTeacher.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbxCourseTeacher.DisplayMember = "Text";
             this.cbxCourseTeacher.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbxCourseTeacher.FormattingEnabled = true;
@@ -240,7 +242,7 @@
             // 
             this.lblMsg.BackgroundStyle.Class = "";
             this.lblMsg.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblMsg.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblMsg.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblMsg.Location = new System.Drawing.Point(35, 21);
             this.lblMsg.Name = "lblMsg";
             this.lblMsg.Size = new System.Drawing.Size(84, 26);

@@ -361,11 +361,14 @@
     <Compile Include="ImportExport\ExportStudentCourseSelect.cs" />
     <Compile Include="ImportExport\ImportSCAttend.cs" />
     <Compile Include="ImportExport\ImportCourse.cs" />
+    <Compile Include="ImportExport\ImportSubjectList.cs" />
+    <Compile Include="ImportExport\ValidationRule\CourseTimetableCheck.cs" />
     <Compile Include="ImportExport\ValidationRule\StudentNumberCheck.cs" />
     <Compile Include="ImportExport\ValidationRule\CourseNameCheck.cs" />
     <Compile Include="ImportExport\ValidationRule\DepartmentNameCheck.cs" />
     <Compile Include="ImportExport\ValidationRule\FieldValidatorFactory.cs" />
     <Compile Include="ImportExport\ValidationRule\RowValidatorFactory.cs" />
+    <Compile Include="ImportExport\ValidationRule\SubjectListCheck.cs" />
     <Compile Include="ImportExport\ValidationRule\TeacherNameCheck.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -408,6 +411,11 @@
     <Compile Include="RetakeView.Designer.cs">
       <DependentUpon>RetakeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\CompleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\CompleteForm.designer.cs" />
+    <Compile Include="Tools\DataGridViewExport.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -447,6 +455,7 @@
     <None Include="Resources\RetakeSCAttend.xml" />
     <None Include="Resources\RetakeCourse.xml" />
     <None Include="Resources\lesson_planning_clock_64.png" />
+    <None Include="Resources\SubjectList.xml" />
     <Content Include="Resources\刪除課程.png" />
     <Content Include="Resources\匯出.png" />
     <Content Include="Resources\新增課程 .png" />
@@ -562,6 +571,7 @@
     <EmbeddedResource Include="RetakeView.resx">
       <DependentUpon>RetakeView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tools\CompleteForm.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

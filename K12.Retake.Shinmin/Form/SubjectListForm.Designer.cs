@@ -55,6 +55,8 @@
             this.btnSave = new DevComponents.DotNetBar.ButtonX();
             this.lblCount = new DevComponents.DotNetBar.LabelX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
+            this.buttonX2 = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.dgData)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +87,7 @@
             this.dgData.ContextMenuStrip = this.contextMenuStrip1;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
@@ -230,26 +232,26 @@
             this.批次修改所屬課表ToolStripMenuItem,
             this.批次修改科目類別ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 70);
             // 
             // 批次修改科別ToolStripMenuItem
             // 
             this.批次修改科別ToolStripMenuItem.Name = "批次修改科別ToolStripMenuItem";
-            this.批次修改科別ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.批次修改科別ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.批次修改科別ToolStripMenuItem.Text = "批次修改科別";
             this.批次修改科別ToolStripMenuItem.Click += new System.EventHandler(this.批次修改科別ToolStripMenuItem_Click);
             // 
             // 批次修改所屬課表ToolStripMenuItem
             // 
             this.批次修改所屬課表ToolStripMenuItem.Name = "批次修改所屬課表ToolStripMenuItem";
-            this.批次修改所屬課表ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.批次修改所屬課表ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.批次修改所屬課表ToolStripMenuItem.Text = "批次修改所屬課表";
             this.批次修改所屬課表ToolStripMenuItem.Click += new System.EventHandler(this.批次修改所屬課表ToolStripMenuItem_Click);
             // 
             // 批次修改科目類別ToolStripMenuItem
             // 
             this.批次修改科目類別ToolStripMenuItem.Name = "批次修改科目類別ToolStripMenuItem";
-            this.批次修改科目類別ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.批次修改科目類別ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.批次修改科目類別ToolStripMenuItem.Text = "批次修改科目類別";
             this.批次修改科目類別ToolStripMenuItem.Click += new System.EventHandler(this.批次修改科目類別ToolStripMenuItem_Click);
             // 
@@ -262,7 +264,7 @@
             // 
             this.lblTitle.BackgroundStyle.Class = "";
             this.lblTitle.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblTitle.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblTitle.Location = new System.Drawing.Point(7, 7);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(156, 26);
@@ -289,7 +291,7 @@
             this.btnExit.AutoSize = true;
             this.btnExit.BackColor = System.Drawing.Color.Transparent;
             this.btnExit.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnExit.Location = new System.Drawing.Point(742, 363);
+            this.btnExit.Location = new System.Drawing.Point(742, 364);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(82, 25);
             this.btnExit.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -304,7 +306,7 @@
             this.btnSave.AutoSize = true;
             this.btnSave.BackColor = System.Drawing.Color.Transparent;
             this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSave.Location = new System.Drawing.Point(654, 363);
+            this.btnSave.Location = new System.Drawing.Point(654, 364);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(82, 25);
             this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -322,7 +324,7 @@
             // 
             this.lblCount.BackgroundStyle.Class = "";
             this.lblCount.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblCount.Location = new System.Drawing.Point(7, 364);
+            this.lblCount.Location = new System.Drawing.Point(524, 12);
             this.lblCount.Name = "lblCount";
             this.lblCount.Size = new System.Drawing.Size(74, 21);
             this.lblCount.TabIndex = 8;
@@ -338,17 +340,45 @@
             // 
             this.labelX1.BackgroundStyle.Class = "";
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Location = new System.Drawing.Point(190, 364);
+            this.labelX1.Location = new System.Drawing.Point(243, 366);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(336, 21);
             this.labelX1.TabIndex = 9;
             this.labelX1.Text = "節次：鍵入\"V\"鍵勾選，空白鍵與Delete鍵可清除資料。";
+            // 
+            // buttonX1
+            // 
+            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX1.BackColor = System.Drawing.Color.Transparent;
+            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX1.Location = new System.Drawing.Point(7, 365);
+            this.buttonX1.Name = "buttonX1";
+            this.buttonX1.Size = new System.Drawing.Size(75, 23);
+            this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX1.TabIndex = 10;
+            this.buttonX1.Text = "匯出";
+            this.buttonX1.Click += new System.EventHandler(this.buttonX1_Click);
+            // 
+            // buttonX2
+            // 
+            this.buttonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX2.BackColor = System.Drawing.Color.Transparent;
+            this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX2.Location = new System.Drawing.Point(88, 365);
+            this.buttonX2.Name = "buttonX2";
+            this.buttonX2.Size = new System.Drawing.Size(75, 23);
+            this.buttonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX2.TabIndex = 11;
+            this.buttonX2.Text = "匯入";
+            this.buttonX2.Click += new System.EventHandler(this.buttonX2_Click);
             // 
             // SubjectListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 395);
+            this.Controls.Add(this.buttonX2);
+            this.Controls.Add(this.buttonX1);
             this.Controls.Add(this.labelX1);
             this.Controls.Add(this.lblCount);
             this.Controls.Add(this.btnSave);
@@ -395,5 +425,7 @@
         private System.Windows.Forms.ToolStripMenuItem 批次修改所屬課表ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 批次修改科目類別ToolStripMenuItem;
         private DevComponents.DotNetBar.LabelX labelX1;
+        private DevComponents.DotNetBar.ButtonX buttonX1;
+        private DevComponents.DotNetBar.ButtonX buttonX2;
     }
 }

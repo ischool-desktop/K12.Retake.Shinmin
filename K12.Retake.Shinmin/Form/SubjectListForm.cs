@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using K12.Retake.Shinmin.DAO;
 using System.Xml.Linq;
+using K12.Retake.Shinmin.Tools;
 
 
 namespace K12.Retake.Shinmin.Form
@@ -549,6 +550,27 @@ namespace K12.Retake.Shinmin.Form
                     }
                 }
             }
+        }
+
+        private void buttonX1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.FileName = "匯出重補修科目管理" + _SchoolYear + "_" + _Semester + "_" + _Month;
+            saveFileDialog1.Filter = "Excel (*.xls)|*.xls";
+            if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
+
+            DataGridViewExport export = new DataGridViewExport(dgData);
+            export.Save(saveFileDialog1.FileName);
+
+            if (new CompleteForm().ShowDialog() == DialogResult.Yes)
+                System.Diagnostics.Process.Start(saveFileDialog1.FileName);
+        }
+
+        private void buttonX2_Click(object sender, EventArgs e)
+        {
+            new ImportSubjectList().Execute();
+            RetakeEvents.RaiseAssnChanged();
+            _bgWorker.RunWorkerAsync();
         }
     }
 }

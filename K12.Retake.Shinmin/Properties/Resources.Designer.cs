@@ -189,6 +189,31 @@ namespace K12.Retake.Shinmin.Properties {
         }
         
         /// <summary>
+        ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;format.xsl&quot; ?&gt;
+        ///&lt;ValidateRule Name=&quot;重補修科目管理&quot;&gt;
+        ///  &lt;DuplicateDetection&gt;
+        ///    &lt;Detector Name=&quot;組合鍵值&quot;&gt;
+        ///      &lt;Field Name=&quot;科目名稱&quot; /&gt;
+        ///      &lt;Field Name=&quot;學分數&quot; /&gt;
+        ///      &lt;Field Name=&quot;所屬課表&quot; /&gt;
+        ///    &lt;/Detector&gt;
+        ///  &lt;/DuplicateDetection&gt;
+        ///  &lt;FieldList&gt;
+        ///
+        ///    &lt;Field Required=&quot;True&quot; Name=&quot;科目名稱&quot; Description=&quot;科目名稱&quot;&gt;
+        ///      &lt;Validate AutoCorrect=&quot;False&quot; Description=&quot;「科目名稱」不允許空白。&quot; ErrorType=&quot;Error&quot; Validator=&quot;不可空白&quot; When=&quot;&quot; /&gt;
+        ///    &lt;/Field&gt;
+        ///
+        ///   [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
+        /// </summary>
+        internal static string SubjectList {
+            get {
+                return ResourceManager.GetString("SubjectList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
         /// </summary>
         internal static System.Drawing.Bitmap time_frame_refresh_128 {

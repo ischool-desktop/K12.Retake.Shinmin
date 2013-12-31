@@ -25,6 +25,8 @@ namespace K12.Retake.Shinmin
                     return new DepartmentNameCheck();
                 case "TEACHERNAMECHECK":
                     return new TeacherNameCheck();
+                case "RETAKECOURSETIMETABLECHECK":
+                    return new CourseTimetableCheck();
                 default:
                     return null;
             }

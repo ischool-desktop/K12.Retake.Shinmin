@@ -21,6 +21,8 @@ namespace K12.Retake.Shinmin
             {
                 case "COURSENAMECHECK":
                     return new CourseNameCheck();
+                case "RETAKESUBJECTLISTCHECK":
+                    return new SubjectListCheck();
                 default:
                     return null;
             }

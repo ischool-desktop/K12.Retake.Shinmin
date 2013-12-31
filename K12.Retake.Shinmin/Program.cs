@@ -142,8 +142,8 @@ namespace K12.Retake.Shinmin
             RibbonBarItem item09 = Shinmin.RetakeAdmin.Instance.RibbonBarItems["資料統計"];
             item09["匯入"].Image = Properties.Resources.Import_Image;
             item09["匯入"].Size = RibbonBarButton.MenuButtonSize.Large;
-            item09["匯入"]["匯入課程"].Enable = UserAcl.Current["K12.Retake.Shinmin.ImportCourse"].Executable;
-            item09["匯入"]["匯入課程"].Click += delegate
+            item09["匯入"]["匯入課程基本資料"].Enable = UserAcl.Current["K12.Retake.Shinmin.ImportCourse"].Executable;
+            item09["匯入"]["匯入課程基本資料"].Click += delegate
             {
                 new ImportCourseExtension().Execute();
                 RetakeEvents.RaiseAssnChanged();
@@ -345,8 +345,8 @@ namespace K12.Retake.Shinmin
             RibbonBarItem itemEp03 = Shinmin.RetakeAdmin.Instance.RibbonBarItems["資料統計"];
             itemEp03["匯出"].Image = Properties.Resources.匯出;
             itemEp03["匯出"].Size = RibbonBarButton.MenuButtonSize.Large;
-            itemEp03["匯出"]["匯出課程"].Enable = UserAcl.Current["K12.Retake.Shinmin.ExportCourseInfo"].Executable;
-            itemEp03["匯出"]["匯出課程"].Click += delegate
+            itemEp03["匯出"]["匯出課程基本資料"].Enable = UserAcl.Current["K12.Retake.Shinmin.ExportCourseInfo"].Executable;
+            itemEp03["匯出"]["匯出課程基本資料"].Click += delegate
             {
                 if (RetakeAdmin.Instance.SelectedSource.Count > 0)
                 {

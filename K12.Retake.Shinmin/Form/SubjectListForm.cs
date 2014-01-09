@@ -18,6 +18,10 @@ namespace K12.Retake.Shinmin.Form
         int _DeleteRowCount = 0;
         int _SeletedRowCount = 0;
         bool _DelData = false;
+        bool _IsChangeNow = false;
+        //監聽表單
+        Campus.Windows.ChangeListener _ChangeListener = new Campus.Windows.ChangeListener();
+
         BackgroundWorker _bgWorker = new BackgroundWorker();
         List<UDTSubjectDef> _UDTSubjectList = new List<UDTSubjectDef>();
         int _SchoolYear = 0, _Semester = 0, _Month = 0;
@@ -48,25 +52,32 @@ namespace K12.Retake.Shinmin.Form
                 colSubjectType.Items.AddRange(strSubjType.ToArray());
                 _bgWorker.DoWork += new DoWorkEventHandler(_bgWorker_DoWork);
                 _bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(_bgWorker_RunWorkerCompleted);
+                this.Text = "畫面資料讀取中...";
                 _bgWorker.RunWorkerAsync();
             }
         }
 
         void _bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            this.Text = "重補修科目管理";
             colCourseTimetable.Items.Clear();
             foreach (string each in _CourseTableNameDict.Values)
             {
                 colCourseTimetable.Items.Add(each);
             }
             LoadDataToDataGrid();
+
+            //重置監聽
+            _ChangeListener.Reset();
+            _ChangeListener.ResumeListen();
+            _IsChangeNow = false;
+
             colDept.Items.AddRange(_AllDeptNameList.ToArray());
         }
 
         private void LoadDataToDataGrid()
         {
             dgData.Rows.Clear();
-
 
             foreach (UDTSubjectDef data in _UDTSubjectList)
             {
@@ -111,7 +122,7 @@ namespace K12.Retake.Shinmin.Form
         void _bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             _UDTSubjectList = UDTTransfer.UDTSubjectSelectByP1(_SchoolYear, _Semester, _Month);
-             _AllDeptNameList = QueryData.GetAllDeptName();
+            _AllDeptNameList = QueryData.GetAllDeptName();
 
             _CourseTableNameDict.Clear();
             // 取得課表名稱
@@ -120,13 +131,13 @@ namespace K12.Retake.Shinmin.Form
 
             _AllCourseTableDeptList = UDTTransfer.GetAllCourseTableDeptList();
 
-            _UDTSubjectList.Sort(UDTSubjectListSort); //Cloud 2014/1/8
+            _UDTSubjectList.Sort(UDTSubjectListSort); //資料排序 Cloud 2014/1/8
         }
 
         //Cloud 2014/1/8
         private int UDTSubjectListSort(UDTSubjectDef x, UDTSubjectDef y)
         {
-            String xx = x.SubjectName.PadLeft(20,'0');
+            String xx = x.SubjectName.PadLeft(20, '0');
             xx += x.SubjecLevel.ToString().PadLeft(3, '0');
             xx += x.Credit.ToString().PadLeft(3, '0');
             xx += x.DeptName.PadLeft(20, '0');
@@ -157,7 +168,16 @@ namespace K12.Retake.Shinmin.Form
         private void SubjectListForm_Load(object sender, EventArgs e)
         {
             lblTitle.Text = GetCurrentTimeList();
-            //
+            this.Text = "畫面資料讀取中...";
+            
+            //Cloud 2014.1.9
+            _ChangeListener.StatusChanged += new EventHandler<Campus.Windows.ChangeEventArgs>(_ChangeListener_StatusChanged);
+            _ChangeListener.Add(new Campus.Windows.DataGridViewSource(dgData));
+        }
+
+        private void _ChangeListener_StatusChanged(object sender, Campus.Windows.ChangeEventArgs e)
+        {
+            _IsChangeNow = (e.Status == Campus.Windows.ValueStatus.Dirty);
         }
 
         /// <summary>
@@ -376,9 +396,8 @@ namespace K12.Retake.Shinmin.Form
                 _InsertDataList.Clear();
                 _UpdateDataList.Clear();
                 _DeleteDataList.Clear();
-                if(sender != null)
                 FISCA.Presentation.Controls.MsgBox.Show("儲存完成");
-                this.Close();
+                _IsChangeNow = false;
 
                 #endregion
             }
@@ -566,7 +585,7 @@ namespace K12.Retake.Shinmin.Form
                 _SeletedRowCount--;
             }
 
-            if(_SeletedRowCount == 0)
+            if (_SeletedRowCount == 0)
             {
                 _DeleteRowCount = 0;
                 _DelData = false;
@@ -620,10 +639,30 @@ namespace K12.Retake.Shinmin.Form
 
         private void buttonX2_Click(object sender, EventArgs e)
         {
-            btnSave_Click(null, null);
+            if (_IsChangeNow)
+            {
+                DialogResult dr = FISCA.Presentation.Controls.MsgBox.Show("確認放棄?", "尚未儲存資料", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dr != System.Windows.Forms.DialogResult.Yes)
+                {
+                    return;
+                }
+            }
             new ImportSubjectList().Execute();
             RetakeEvents.RaiseAssnChanged();
+            this.Text = "畫面資料讀取中...";
             _bgWorker.RunWorkerAsync();
+        }
+
+        private void SubjectListForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_IsChangeNow)
+            {
+                DialogResult dr = FISCA.Presentation.Controls.MsgBox.Show("確認放棄?", "尚未儲存資料", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dr != System.Windows.Forms.DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

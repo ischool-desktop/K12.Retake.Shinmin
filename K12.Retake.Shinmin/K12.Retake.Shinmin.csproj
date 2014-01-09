@@ -455,7 +455,9 @@
     <None Include="Resources\RetakeSCAttend.xml" />
     <None Include="Resources\RetakeCourse.xml" />
     <None Include="Resources\lesson_planning_clock_64.png" />
-    <None Include="Resources\SubjectList.xml" />
+    <None Include="Resources\SubjectList.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Resources\刪除課程.png" />
     <Content Include="Resources\匯出.png" />
     <Content Include="Resources\新增課程 .png" />

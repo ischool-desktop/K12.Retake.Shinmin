@@ -390,6 +390,7 @@
             this.MaximizeBox = true;
             this.Name = "SubjectListForm";
             this.Text = "重補修科目管理";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SubjectListForm_FormClosing);
             this.Load += new System.EventHandler(this.SubjectListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgData)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);

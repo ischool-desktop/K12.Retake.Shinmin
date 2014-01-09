@@ -93,9 +93,10 @@ namespace K12.Retake.Shinmin
                     string uid = elem.UID;
                     string subject_name = elem.SubjectName;
                     string subject_level = elem.SubjecLevel.ToString();
+                    string subject_credit = elem.Credit.ToString();
                     string course_timetable_id = elem.CourseTimetableID.ToString();
 
-                    string subjectKey = _SchoolYear + "," + _Semester + "," + _Month + "," + subject_name + "," + subject_level + "," + course_timetable_id;
+                    string subjectKey = _SchoolYear + "," + _Semester + "," + _Month + "," + subject_name + "," + subject_level + "," + subject_credit + "," + course_timetable_id;
 
                     if (!_SubjectDic.ContainsKey(subjectKey))
                         _SubjectDic.Add(subjectKey, uid);
@@ -116,9 +117,10 @@ namespace K12.Retake.Shinmin
 
             mstrLog.Clear();
 
-            if (mOption.SelectedKeyFields.Count >= 3 &&
+            if (mOption.SelectedKeyFields.Count >= 4 &&
                 mOption.SelectedKeyFields.Contains(_SubjectName) &&
                 mOption.SelectedKeyFields.Contains(_SubjectLevel) &&
+                mOption.SelectedKeyFields.Contains(_Credit) &&
                 mOption.SelectedKeyFields.Contains(_CourseTimetable))
             {
                 List<UDTSubjectDef> mSubjectExtensions = new List<UDTSubjectDef>(); //需要更新的record清單
@@ -126,9 +128,10 @@ namespace K12.Retake.Shinmin
                 {
                     string subject_name = Row.GetValue(_SubjectName);
                     string subject_level = Row.GetValue(_SubjectLevel);
+                    string subject_credit = Row.GetValue(_Credit);
                     string course_timetable_id = _CourseTimetableDic[Row.GetValue(_CourseTimetable)];
 
-                    string subjectKey = _SchoolYear + "," + _Semester + "," + _Month + "," + subject_name + "," + subject_level + "," + course_timetable_id;
+                    string subjectKey = _SchoolYear + "," + _Semester + "," + _Month + "," + subject_name + "," + subject_level + "," + subject_credit + "," + course_timetable_id;
 
                     string uid = _SubjectDic.ContainsKey(subjectKey) ? _SubjectDic[subjectKey] : string.Empty;
 
@@ -152,9 +155,10 @@ namespace K12.Retake.Shinmin
                     {
                         string subject_name = Row.GetValue(_SubjectName);
                         string subject_level = Row.GetValue(_SubjectLevel);
+                        string subject_credit = Row.GetValue(_Credit);
                         string course_timetable_id = _CourseTimetableDic[Row.GetValue(_CourseTimetable)];
 
-                        string subjectKey = _SchoolYear + "," + _Semester + "," + _Month + "," + subject_name + "," + subject_level + "," + course_timetable_id;
+                        string subjectKey = _SchoolYear + "," + _Semester + "," + _Month + "," + subject_name + "," + subject_level + "," + subject_credit + "," + course_timetable_id;
 
                         int? subjectID = null;
                         UDTSubjectDef vSubjectExtension = null;

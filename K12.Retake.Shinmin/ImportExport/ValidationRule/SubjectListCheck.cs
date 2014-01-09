@@ -23,7 +23,7 @@ namespace K12.Retake.Shinmin
                 QueryHelper Helper = new QueryHelper();
 
                 #region 取得組合鍵值清單
-                DataTable Table = Helper.Select("select school_year,semester,month,subject_name,subject_level,course_timetable_id from $shinmin.retake.subject");
+                DataTable Table = Helper.Select("select school_year,semester,month,subject_name,subject_level,credit,course_timetable_id from $shinmin.retake.subject");
 
                 foreach (DataRow Row in Table.Rows)
                 {
@@ -32,8 +32,9 @@ namespace K12.Retake.Shinmin
                     string month = Row.Field<string>("month");
                     string subject_name = Row.Field<string>("subject_name");
                     string subject_level = Row.Field<string>("subject_level");
+                    string subject_credit = Row.Field<string>("credit");
                     string course_timetable_id = Row.Field<string>("course_timetable_id");
-                    string SubjectKey = school_year + "," + semester + "," + month + "," + subject_name + "," + subject_level + "," + course_timetable_id;
+                    string SubjectKey = school_year + "," + semester + "," + month + "," + subject_name + "," + subject_level + "," + subject_credit + "," + course_timetable_id;
 
                     if (!mSubjectNames.Contains(SubjectKey))
                         mSubjectNames.Add(SubjectKey);
@@ -72,10 +73,11 @@ namespace K12.Retake.Shinmin
         {
             mTask.Wait();
 
-            if (Value.Contains("科目名稱") && Value.Contains("級別") && Value.Contains("所屬課表"))
+            if (Value.Contains("科目名稱") && Value.Contains("級別") && Value.Contains("學分數") && Value.Contains("所屬課表"))
             {
                 string subject_name = Value.GetValue("科目名稱");
                 string subject_level = Value.GetValue("級別");
+                string subjec_credit = Value.GetValue("學分數");
                 string course_timetable_id ="";
                 try
                 {
@@ -86,7 +88,7 @@ namespace K12.Retake.Shinmin
                     course_timetable_id = "";
                 }
 
-                string SubjectKey = _SchoolYear + "," + _Semester + "," + _Month + "," + subject_name + "," + subject_level + "," + course_timetable_id;
+                string SubjectKey = _SchoolYear + "," + _Semester + "," + _Month + "," + subject_name + "," + subject_level + "," + subjec_credit + "," + course_timetable_id;
 
                 return mSubjectNames.Contains(SubjectKey);
             }

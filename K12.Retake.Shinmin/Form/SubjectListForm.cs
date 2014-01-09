@@ -15,6 +15,9 @@ namespace K12.Retake.Shinmin.Form
 {
     public partial class SubjectListForm : FISCA.Presentation.Controls.BaseForm, ISubjecAdd
     {
+        int _DeleteRowCount = 0;
+        int _SeletedRowCount = 0;
+        bool _DelData = false;
         BackgroundWorker _bgWorker = new BackgroundWorker();
         List<UDTSubjectDef> _UDTSubjectList = new List<UDTSubjectDef>();
         int _SchoolYear = 0, _Semester = 0, _Month = 0;
@@ -108,7 +111,7 @@ namespace K12.Retake.Shinmin.Form
         void _bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             _UDTSubjectList = UDTTransfer.UDTSubjectSelectByP1(_SchoolYear, _Semester, _Month);
-            _AllDeptNameList = QueryData.GetAllDeptName();
+             _AllDeptNameList = QueryData.GetAllDeptName();
 
             _CourseTableNameDict.Clear();
             // 取得課表名稱
@@ -116,6 +119,28 @@ namespace K12.Retake.Shinmin.Form
                 _CourseTableNameDict.Add(int.Parse(data.UID), data.Name);
 
             _AllCourseTableDeptList = UDTTransfer.GetAllCourseTableDeptList();
+
+            _UDTSubjectList.Sort(UDTSubjectListSort); //Cloud 2014/1/8
+        }
+
+        //Cloud 2014/1/8
+        private int UDTSubjectListSort(UDTSubjectDef x, UDTSubjectDef y)
+        {
+            String xx = x.SubjectName.PadLeft(20,'0');
+            xx += x.SubjecLevel.ToString().PadLeft(3, '0');
+            xx += x.Credit.ToString().PadLeft(3, '0');
+            xx += x.DeptName.PadLeft(20, '0');
+            xx += _CourseTableNameDict[x.CourseTimetableID].PadLeft(20, '0');
+            xx += x.SubjectType.PadLeft(10, '0');
+
+            String yy = y.SubjectName.PadLeft(20, '0');
+            yy += y.SubjecLevel.ToString().PadLeft(3, '0');
+            yy += y.Credit.ToString().PadLeft(3, '0');
+            yy += y.DeptName.PadLeft(20, '0');
+            yy += _CourseTableNameDict[y.CourseTimetableID].PadLeft(20, '0');
+            yy += y.SubjectType.PadLeft(10, '0');
+
+            return xx.CompareTo(yy);
         }
 
         private void btnGetSuggestSubject_Click(object sender, EventArgs e)
@@ -131,8 +156,8 @@ namespace K12.Retake.Shinmin.Form
 
         private void SubjectListForm_Load(object sender, EventArgs e)
         {
-                lblTitle.Text = GetCurrentTimeList();
-                //
+            lblTitle.Text = GetCurrentTimeList();
+            //
         }
 
         /// <summary>
@@ -303,10 +328,10 @@ namespace K12.Retake.Shinmin.Form
                     else
                         data.SubjecLevel = int.Parse(row.Cells[colSubjectLevel.Index].Value.ToString());
 
-                    if(row.Cells[colCredit.Index].Value !=null)
+                    if (row.Cells[colCredit.Index].Value != null)
                         data.Credit = int.Parse(row.Cells[colCredit.Index].Value.ToString());
 
-                    if(row.Cells[colSubjectType.Index].Value!=null)
+                    if (row.Cells[colSubjectType.Index].Value != null)
                         data.SubjectType = row.Cells[colSubjectType.Index].Value.ToString();
 
                     if (row.Cells[colCourseTimetable.Index].Value != null)
@@ -351,6 +376,7 @@ namespace K12.Retake.Shinmin.Form
                 _InsertDataList.Clear();
                 _UpdateDataList.Clear();
                 _DeleteDataList.Clear();
+                if(sender != null)
                 FISCA.Presentation.Controls.MsgBox.Show("儲存完成");
                 this.Close();
 
@@ -501,7 +527,7 @@ namespace K12.Retake.Shinmin.Form
                     else
                     {
                         // 不處理
-                    }                    
+                    }
                 }
             }
 
@@ -509,16 +535,42 @@ namespace K12.Retake.Shinmin.Form
 
         private void dgData_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            if (FISCA.Presentation.Controls.MsgBox.Show("請問是否刪除?", "刪除科目", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+            if (_DeleteRowCount == 0)
             {
-                UDTSubjectDef delSubj = e.Row.Tag as UDTSubjectDef;
-                if (delSubj != null && (!string.IsNullOrEmpty(delSubj.UID)))    // 小郭, 2013/12/24
-                {
-                    _DeleteDataList.Add(delSubj);
-                }
+                _DeleteRowCount = dgData.SelectedRows.Count;
+                _SeletedRowCount = dgData.SelectedRows.Count;
             }
-            else
-                e.Cancel = true;
+
+            if (_SeletedRowCount > 0)
+            {
+                if (_SeletedRowCount == _DeleteRowCount)
+                {
+                    if (FISCA.Presentation.Controls.MsgBox.Show("請問是否刪除?", "刪除科目", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        _DelData = true;
+                    }
+                }
+
+                if (_DelData)
+                {
+                    UDTSubjectDef delSubj = e.Row.Tag as UDTSubjectDef;
+                    if (delSubj != null && (!string.IsNullOrEmpty(delSubj.UID)))    // 小郭, 2013/12/24
+                    {
+                        _DeleteDataList.Add(delSubj);
+                    }
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+                _SeletedRowCount--;
+            }
+
+            if(_SeletedRowCount == 0)
+            {
+                _DeleteRowCount = 0;
+                _DelData = false;
+            }
         }
 
         private void 批次修改科別ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -568,6 +620,7 @@ namespace K12.Retake.Shinmin.Form
 
         private void buttonX2_Click(object sender, EventArgs e)
         {
+            btnSave_Click(null, null);
             new ImportSubjectList().Execute();
             RetakeEvents.RaiseAssnChanged();
             _bgWorker.RunWorkerAsync();

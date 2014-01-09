@@ -5,6 +5,7 @@
     <Detector Name="組合鍵值">
       <Field Name="科目名稱" />
       <Field Name="級別" />
+      <Field Name="學分數" />
       <Field Name="所屬課表" />
     </Detector>
   </DuplicateDetection>
@@ -14,8 +15,7 @@
       <Validate AutoCorrect="False" Description="「科目名稱」不允許空白。" ErrorType="Error" Validator="不可空白" When="" />
     </Field>
 
-    <Field Required="True" Name="級別" Description="級別">
-      <Validate AutoCorrect="False" Description="「級別」不允許空白。" ErrorType="Error" Validator="不可空白" When="" />
+    <Field Required="True" Name="級別" Description="級別" EmptyAlsoValidate="False">
       <Validate AutoCorrect="False" Description="「級別」必須是數字。" ErrorType="Error" Validator="Integer極限" When="" />
     </Field>
 
@@ -92,7 +92,7 @@
   </ValidatorList>
 
   <RowValidate>
-    <Validate AutoCorrect="False" Description="「科目名稱」、「級別」、「所屬課表」組合不存在系統，此筆將新增。" ErrorType="Warning" Validator="組合鍵值是否存在" When=""/>
+    <Validate AutoCorrect="False" Description="「科目名稱」、「級別」、「學分數」、「所屬課表」組合不存在系統，此筆將新增。" ErrorType="Warning" Validator="組合鍵值是否存在" When=""/>
   </RowValidate>
 
   <ConditionList />

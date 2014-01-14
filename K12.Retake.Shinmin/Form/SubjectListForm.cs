@@ -15,6 +15,7 @@ namespace K12.Retake.Shinmin.Form
 {
     public partial class SubjectListForm : FISCA.Presentation.Controls.BaseForm, ISubjecAdd
     {
+        List<DataGridViewRow> before, after;
         int _DeleteRowCount = 0;
         int _SeletedRowCount = 0;
         bool _DelData = false;
@@ -66,6 +67,13 @@ namespace K12.Retake.Shinmin.Form
                 colCourseTimetable.Items.Add(each);
             }
             LoadDataToDataGrid();
+
+            //紀錄修改前畫面資料
+            before = new List<DataGridViewRow>();
+            foreach(DataGridViewRow row in dgData.Rows)
+            {
+                before.Add(row);
+            }
 
             //重置監聽
             _ChangeListener.Reset();
@@ -400,6 +408,13 @@ namespace K12.Retake.Shinmin.Form
                 _IsChangeNow = false;
 
                 #endregion
+
+                //紀錄修改前畫面資料
+                before = new List<DataGridViewRow>();
+                foreach (DataGridViewRow row in dgData.Rows)
+                {
+                    before.Add(row);
+                }
             }
             catch (Exception ex)
             {
@@ -655,6 +670,19 @@ namespace K12.Retake.Shinmin.Form
 
         private void SubjectListForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //紀錄修改後畫面資料
+            after = new List<DataGridViewRow>();
+            foreach (DataGridViewRow row in dgData.Rows)
+            {
+                after.Add(row);
+            }
+
+            //比對修改前後的資料數量
+            if(before.Count != after.Count)
+            {
+                _IsChangeNow = true;
+            }
+
             if (_IsChangeNow)
             {
                 DialogResult dr = FISCA.Presentation.Controls.MsgBox.Show("確認放棄?", "尚未儲存資料", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);

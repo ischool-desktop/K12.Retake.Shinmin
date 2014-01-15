@@ -15,7 +15,7 @@ namespace K12.Retake.Shinmin.Form
 {
     public partial class SubjectListForm : FISCA.Presentation.Controls.BaseForm, ISubjecAdd
     {
-        List<DataGridViewRow> before, after;
+        int _BeforeRowCount, _AfterRowCount;
         int _DeleteRowCount = 0;
         int _SeletedRowCount = 0;
         bool _DelData = false;
@@ -68,11 +68,12 @@ namespace K12.Retake.Shinmin.Form
             }
             LoadDataToDataGrid();
 
-            //紀錄修改前畫面資料
-            before = new List<DataGridViewRow>();
-            foreach(DataGridViewRow row in dgData.Rows)
+            //紀錄修改前畫面資料筆數
+            _BeforeRowCount = 0;
+            foreach (DataGridViewRow row in dgData.Rows)
             {
-                before.Add(row);
+                if (row.IsNewRow) continue;
+                _BeforeRowCount++;
             }
 
             //重置監聽
@@ -409,11 +410,12 @@ namespace K12.Retake.Shinmin.Form
 
                 #endregion
 
-                //紀錄修改前畫面資料
-                before = new List<DataGridViewRow>();
+                //紀錄修改前畫面資料比數
+                _BeforeRowCount = 0;
                 foreach (DataGridViewRow row in dgData.Rows)
                 {
-                    before.Add(row);
+                    if (row.IsNewRow) continue;
+                    _BeforeRowCount++;
                 }
             }
             catch (Exception ex)
@@ -670,15 +672,16 @@ namespace K12.Retake.Shinmin.Form
 
         private void SubjectListForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //紀錄修改後畫面資料
-            after = new List<DataGridViewRow>();
+            //紀錄修改後畫面資料比數
+            _AfterRowCount = 0;
             foreach (DataGridViewRow row in dgData.Rows)
             {
-                after.Add(row);
+                if (row.IsNewRow) continue;
+                _AfterRowCount++;
             }
 
             //比對修改前後的資料數量
-            if(before.Count != after.Count)
+            if (_BeforeRowCount != _AfterRowCount)
             {
                 _IsChangeNow = true;
             }

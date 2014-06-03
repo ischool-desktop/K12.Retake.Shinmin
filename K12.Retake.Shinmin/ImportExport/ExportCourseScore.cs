@@ -194,6 +194,7 @@ namespace K12.Retake.Shinmin.ImportExport
                                     else
                                         cs.strRequire = "選修";
                                     cs.Def1 = rec1.Detail.GetAttribute("修課校部訂");
+                                    cs.開課分項類別 = rec1.Detail.GetAttribute("開課分項類別");
 
                                     decimal dd;
                                     if (decimal.TryParse(rec1.Detail.GetAttribute("原始成績"), out dd))
@@ -231,7 +232,7 @@ namespace K12.Retake.Shinmin.ImportExport
                 {
                     CourseScore cs = new CourseScore();
                     UDTCourseDef co = courseDict[data.CourseID];
-
+                    cs.開課分項類別 = "學業";
                     cs.isT1 = false;
                     if (studDict.ContainsKey(data.StudentID))
                     {
@@ -314,7 +315,7 @@ namespace K12.Retake.Shinmin.ImportExport
                 wb.Worksheets[0].Cells[rowIdx, 4].PutValue(cs.SchoolYear);
                 wb.Worksheets[0].Cells[rowIdx, 5].PutValue(cs.Semester);
                 wb.Worksheets[0].Cells[rowIdx, 6].PutValue(cs.Credit);
-                wb.Worksheets[0].Cells[rowIdx, 7].PutValue("學業");
+                wb.Worksheets[0].Cells[rowIdx, 7].PutValue(cs.開課分項類別);
                 wb.Worksheets[0].Cells[rowIdx, 8].PutValue(cs.GradeYear);
                 wb.Worksheets[0].Cells[rowIdx, 9].PutValue(cs.strRequire);
                 wb.Worksheets[0].Cells[rowIdx, 10].PutValue(cs.Def1);

@@ -77,5 +77,9 @@ namespace K12.Retake.Shinmin.ImportExport
         /// </summary>
         public string Def1 { get; set; }
 
+        /// <summary>
+        /// 開課分項類別
+        /// </summary>
+        public string 開課分項類別 { get; set; }
     }
 }

@@ -28,16 +28,14 @@ namespace K12.Retake.Shinmin.Form
         
         void _bgWorkLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-           
-            if (_AllCourseList.Count > 0)
-            {
-                SetDefaultSelectItem();
-                this.ShowDialog();               
-               
-            }
-            else
+
+            if (_DefSchoolYear == 0 || _DefSemester == 0 || _Defmot==0)
             {
                 FISCA.Presentation.Controls.MsgBox.Show("請先設定目前正在學年度、學期、梯次.");                
+            }
+            else {
+                SetDefaultSelectItem();
+                this.ShowDialog();            
             }
         }
 
@@ -61,6 +59,20 @@ namespace K12.Retake.Shinmin.Form
                 _DefSemester = CourseList[0].Semester;
                 _Defmot = CourseList[0].Month;
             }
+            else
+            {
+                foreach (UDTTimeListDef data in _AllTimeList)
+                {
+                    if (data.Active)
+                    {
+                        _DefSchoolYear = data.SchoolYear;
+                        _DefSemester = data.Semester;
+                        _Defmot = data.Month;
+                        break;
+                    }
+                }
+            }
+
         }     
 
         private void btnExit_Click(object sender, EventArgs e)

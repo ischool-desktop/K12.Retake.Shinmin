@@ -30,6 +30,12 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgData = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.ColCourseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCoSeatNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColStudName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColAttendCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCourseScCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNotExam = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new DevComponents.DotNetBar.ButtonX();
             this.btnQry = new DevComponents.DotNetBar.ButtonX();
             this.btnRun = new DevComponents.DotNetBar.ButtonX();
@@ -37,12 +43,6 @@
             this.txtCal = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.ColCourseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCoSeatNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColStudName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColAttendCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColCourseScCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNotExam = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +65,7 @@
             this.colNotExam});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
@@ -80,6 +80,51 @@
             this.dgData.TabIndex = 0;
             this.dgData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgData_CellContentClick);
             this.dgData.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgData_CellContentDoubleClick);
+            // 
+            // ColCourseName
+            // 
+            this.ColCourseName.HeaderText = "課程名稱";
+            this.ColCourseName.Name = "ColCourseName";
+            this.ColCourseName.ReadOnly = true;
+            this.ColCourseName.Width = 150;
+            // 
+            // colCoSeatNo
+            // 
+            this.colCoSeatNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.colCoSeatNo.HeaderText = "課程座號";
+            this.colCoSeatNo.Name = "colCoSeatNo";
+            this.colCoSeatNo.ReadOnly = true;
+            this.colCoSeatNo.Width = 85;
+            // 
+            // ColStudName
+            // 
+            this.ColStudName.HeaderText = "學生姓名";
+            this.ColStudName.Name = "ColStudName";
+            this.ColStudName.ReadOnly = true;
+            // 
+            // ColAttendCount
+            // 
+            this.ColAttendCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.ColAttendCount.HeaderText = "缺課節數";
+            this.ColAttendCount.Name = "ColAttendCount";
+            this.ColAttendCount.ReadOnly = true;
+            this.ColAttendCount.Width = 85;
+            // 
+            // ColCourseScCount
+            // 
+            this.ColCourseScCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.ColCourseScCount.HeaderText = "總節數";
+            this.ColCourseScCount.Name = "ColCourseScCount";
+            this.ColCourseScCount.ReadOnly = true;
+            this.ColCourseScCount.Width = 72;
+            // 
+            // colNotExam
+            // 
+            this.colNotExam.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.colNotExam.HeaderText = "扣考";
+            this.colNotExam.Name = "colNotExam";
+            this.colNotExam.ReadOnly = true;
+            this.colNotExam.Width = 59;
             // 
             // btnExport
             // 
@@ -181,54 +226,9 @@
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Location = new System.Drawing.Point(229, 12);
             this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(167, 21);
+            this.labelX2.Size = new System.Drawing.Size(234, 21);
             this.labelX2.TabIndex = 7;
-            this.labelX2.Text = "說明：預設比例為三分之一";
-            // 
-            // ColCourseName
-            // 
-            this.ColCourseName.HeaderText = "課程名稱";
-            this.ColCourseName.Name = "ColCourseName";
-            this.ColCourseName.ReadOnly = true;
-            this.ColCourseName.Width = 150;
-            // 
-            // colCoSeatNo
-            // 
-            this.colCoSeatNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colCoSeatNo.HeaderText = "課程座號";
-            this.colCoSeatNo.Name = "colCoSeatNo";
-            this.colCoSeatNo.ReadOnly = true;
-            this.colCoSeatNo.Width = 85;
-            // 
-            // ColStudName
-            // 
-            this.ColStudName.HeaderText = "學生姓名";
-            this.ColStudName.Name = "ColStudName";
-            this.ColStudName.ReadOnly = true;
-            // 
-            // ColAttendCount
-            // 
-            this.ColAttendCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.ColAttendCount.HeaderText = "缺課節數";
-            this.ColAttendCount.Name = "ColAttendCount";
-            this.ColAttendCount.ReadOnly = true;
-            this.ColAttendCount.Width = 85;
-            // 
-            // ColCourseScCount
-            // 
-            this.ColCourseScCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.ColCourseScCount.HeaderText = "總節數";
-            this.ColCourseScCount.Name = "ColCourseScCount";
-            this.ColCourseScCount.ReadOnly = true;
-            this.ColCourseScCount.Width = 72;
-            // 
-            // colNotExam
-            // 
-            this.colNotExam.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colNotExam.HeaderText = "扣考";
-            this.colNotExam.Name = "colNotExam";
-            this.colNotExam.ReadOnly = true;
-            this.colNotExam.Width = 59;
+            this.labelX2.Text = "說明：預設比例為大於等於三分之一。";
             // 
             // StudentNotExamSearchForm
             // 

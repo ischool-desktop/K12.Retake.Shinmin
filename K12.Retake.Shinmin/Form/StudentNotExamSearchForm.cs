@@ -77,7 +77,7 @@ namespace K12.Retake.Shinmin.Form
                         value = a / b;
 
                     // 超過比例再顯示
-                    if (value > _NotExamValue)
+                    if (value >= _NotExamValue)
                     {                        
                         int rowIdx = dgData.Rows.Add();
                         // 將缺曠資料填入 Tag

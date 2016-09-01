@@ -56,6 +56,7 @@
             this.colSemester = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRetake = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCurSel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStudStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgData)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -87,10 +88,11 @@
             this.ScGradeYear,
             this.colSemester,
             this.colRetake,
-            this.colCurSel});
+            this.colCurSel,
+            this.colStudStatus});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
@@ -145,13 +147,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.設成目前正在期間ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(173, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 26);
             this.contextMenuStrip1.Click += new System.EventHandler(this.contextMenuStrip1_Click);
             // 
             // 設成目前正在期間ToolStripMenuItem
             // 
             this.設成目前正在期間ToolStripMenuItem.Name = "設成目前正在期間ToolStripMenuItem";
-            this.設成目前正在期間ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.設成目前正在期間ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.設成目前正在期間ToolStripMenuItem.Text = "設成目前工作名單";
             // 
             // btnAdd
@@ -248,7 +250,7 @@
             // 
             this.lblMsg.BackgroundStyle.Class = "";
             this.lblMsg.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblMsg.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblMsg.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblMsg.Location = new System.Drawing.Point(197, 12);
             this.lblMsg.Name = "lblMsg";
             this.lblMsg.Size = new System.Drawing.Size(669, 23);
@@ -376,6 +378,13 @@
             this.colCurSel.Name = "colCurSel";
             this.colCurSel.ReadOnly = true;
             // 
+            // colStudStatus
+            // 
+            this.colStudStatus.DataPropertyName = "學生狀態";
+            this.colStudStatus.HeaderText = "學生狀態";
+            this.colStudStatus.Name = "colStudStatus";
+            this.colStudStatus.ReadOnly = true;
+            // 
             // SuggestListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -428,5 +437,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colSemester;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRetake;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCurSel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStudStatus;
     }
 }

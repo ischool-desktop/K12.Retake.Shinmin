@@ -133,6 +133,7 @@ namespace K12.Retake.Shinmin.Form
                     subElm.SetAttributeValue("Score", dr["成績"].ToString());
                     subElm.SetAttributeValue("Required", dr["必選修"].ToString());
                     subElm.SetAttributeValue("CheckCourse1", dr["本學期修課"].ToString());
+                    subElm.SetAttributeValue("StudentStatus", dr["學生狀態"].ToString());
                     insertDataDict[sid].Add(subElm);
                 }
 

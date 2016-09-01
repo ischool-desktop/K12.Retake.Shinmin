@@ -30,7 +30,7 @@ namespace K12.Retake.Shinmin.DAO
         /// <summary>
         /// 學分數
         /// </summary>
-        public int Credit { get; set; }
+        public decimal Credit { get; set; }
 
         /// <summary>
         /// 必修或選修

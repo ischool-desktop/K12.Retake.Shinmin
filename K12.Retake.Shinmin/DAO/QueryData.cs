@@ -51,7 +51,7 @@ namespace K12.Retake.Shinmin.DAO
             retTable.Columns.Add("科目");
             retTable.Columns.Add("級別");
             retTable.Columns.Add("本學期修課");
-            
+            retTable.Columns.Add("學生狀態");
 
             // 學生使用的課程規劃id
             Dictionary<string, string> StudGraduationPlanIDDict = new Dictionary<string, string>();
@@ -225,6 +225,7 @@ namespace K12.Retake.Shinmin.DAO
                         row["科目"] = sss.Subject;
                         row["級別"] = sss.Level;
                         row["成績年級"] = sss.GradeYear;
+                        row["學生狀態"] = studRec.Status;
                         retTable.Rows.Add(row);
                     }
                 }
@@ -263,7 +264,7 @@ namespace K12.Retake.Shinmin.DAO
                         row["科目"] = gps.SubjectName;
                         row["級別"] = gps.Level;
                         row["成績年級"] = gps.GradeYear;
-
+                        row["學生狀態"] = studRec.Status;
                         string selKey = studRec.StudentID + studRec.RefClass.GradeYear + gps.Semester + gps.SubjectName + gps.Level;
 
                         if (studCurrentSelectCourse.ContainsKey(selKey))
@@ -318,8 +319,9 @@ namespace K12.Retake.Shinmin.DAO
             retTable.Columns.Add("科目");
             retTable.Columns.Add("級別");
             retTable.Columns.Add("本學期修課");
+            retTable.Columns.Add("學生狀態");
             QueryHelper qh1 = new QueryHelper();
-            string strSQL1 = "select student.id,class.grade_year,dept.name as deptname,class.class_name as classname,student.student_number,student.seat_no,student.name,$shinmin.retake.suggest_list.subject_content from $shinmin.retake.suggest_list join student on $shinmin.retake.suggest_list.ref_student_id = student.id left join class on student.ref_class_id=class.id left join dept on class.ref_dept_id=dept.id where $shinmin.retake.suggest_list.ref_time_list_id='" + UID + "';";
+            string strSQL1 = "select student.id,class.grade_year,dept.name as deptname,class.class_name as classname,student.student_number,student.seat_no,student.name,$shinmin.retake.suggest_list.subject_content from $shinmin.retake.suggest_list join student on $shinmin.retake.suggest_list.ref_student_id = student.id left join class on student.ref_class_id=class.id left join dept on class.ref_dept_id=dept.id where student.status in(1,2) and $shinmin.retake.suggest_list.ref_time_list_id='" + UID + "';";
             DataTable dt1 = qh1.Select(strSQL1);
 
             foreach (DataRow dr in dt1.Rows)
@@ -371,10 +373,13 @@ namespace K12.Retake.Shinmin.DAO
                     if(elm.Attribute("CheckCourse1") !=null)
                         row["本學期修課"] = elm.Attribute("CheckCourse1").Value;
 
+                    if (elm.Attribute("StudentStatus") != null)
+                        row["學生狀態"] = elm.Attribute("StudentStatus").Value;
+
                     retTable.Rows.Add(row);
                 }
             }
-            retTable.DefaultView.Sort = "年級,科別,班級,學號,座號,姓名,科目名稱,必選修,成績,學分,學年度,學期,成績年級,重補修";
+            retTable.DefaultView.Sort = "年級,科別,班級,學號,座號,姓名,科目名稱,必選修,成績,學分,學年度,學期,成績年級,重補修,學生狀態";
             return retTable;
         
         }
@@ -522,7 +527,10 @@ namespace K12.Retake.Shinmin.DAO
                                 gps.Level = elm.Attribute("Level").Value;
                                 gps.Semester = int.Parse(elm.Attribute("Semester").Value);
                                 gps.SubjectName = elm.Attribute("SubjectName").Value;
-                                gps.Credit = int.Parse(elm.Attribute("Credit").Value);
+                                decimal dd;
+                                if (decimal.TryParse(elm.Attribute("Credit").Value,out dd))                                
+                                    gps.Credit = dd;
+                                                                
                                 gps.strRequire = elm.Attribute("Required").Value;
                                 gps.def1 = elm.Attribute("RequiredBy").Value;
                                 gpsList.Add(gps);
@@ -724,7 +732,7 @@ namespace K12.Retake.Shinmin.DAO
         {
             Dictionary<int, string> retVal = new Dictionary<int, string>();
             QueryHelper qh = new QueryHelper();
-            string strQry = "select student.id,dept.name from student inner join class on student.ref_class_id=class.id inner join dept on class.ref_dept_id=dept.id;";
+            string strQry = "select student.id,dept.name from student inner join class on student.ref_class_id=class.id inner join dept on class.ref_dept_id=dept.id where student.status in(1,2);";
             DataTable dt = qh.Select(strQry);
             foreach (DataRow dr in dt.Rows)
             {
